@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head><link rel="stylesheet" type="text/css" href="src/CSS/gs.css">
+    <button id=spinButton class="glow-on-hover" type="button">SPIN</button>
+    <button id=autoSpinButton class="glow-on-hover" type="button" onclick="autoSpinMenu()">(A)SPIN</button>
+    <button id=autoSpinButton2 class="glow-on-hover" type="button" onclick="spinLength('10')">10</button>
+    <button id=autoSpinButton3 class="glow-on-hover" type="button" onclick="spinLength('20')">20</button>
+    <button id=autoSpinButton4 class="glow-on-hover" type="button" onclick="spinLength('50')">50</button>
+    <button id=autoSpinButton5 class="glow-on-hover" type="button" onclick="spinLength('99999')">∞</button>
+    <button id=autoSpinButton6 class="glow-on-hover" type="button" onclick="stopAutoSpin()">X</button>
+
+    <label id=linesLabel1 class="labelFont1" type="label">LINES PLAYED</label>
+    <label id=linesLabel2 class="title2" type="label">27</label>
+    <button id=upLinesButton class="glow-on-hover" type="button"onclick="linesLabelDisplay('up')">↑</button>
+    <button id=downLinesButton class="glow-on-hover" type="button"onclick="linesLabelDisplay('down')">↓</button>
+
+    <label id=betLabel1 class="labelFont1" type="label">BET PER LINE</label>
+    <label id=betLabel2 class="title2" type="label">0.10 AUD</label>
+    <button id=upBetButton class="glow-on-hover" type="button" onclick="betLabelDisplay('up')">↑</button>
+    <button id=downBetButton class="glow-on-hover" type="button" onclick="betLabelDisplay('down')">↓</button>
+
+    <label id=betLabel3 class="labelFont1" type="label">TOTAL BET</label>
+    <label id=betLabel4 class="title2" type="label">2.70 AUD</label>
+
+    <label id=payoutLabel1 class="labelFont1" type="label"></label>
+    <label id=payoutLabel2 class="title6" type="label"></label>
+    <label id=payoutLabel3 class="labelFont1" type="label"></label>
+    <label id=payoutLabel4 class="title2" type="label"></label>
+
+    <label id=moneyLabel1 class="labelFont1" type="label">WALLET TOTAL</label>
+    <label id=moneyLabel2 class="title4" type="label">500 AUD</label>
+
+    <label id=titleLabel1 class="title2" type="label">roodawg</label>
+    <label id=titleLabel2 class="title4" type="label">mini</label>
+    <label id=titleLabel3 class="title6" type="label">67.50</label>
+    <label id=titleLabel4 class="title4" type="label">major</label>
+    <label id=titleLabel5 class="title6" type="label">270.00</label>
+    <label id=titleLabel6 class="title5" type="label">mega</label>
+    <label id=titleLabel7 class="title7" type="label">2700.00</label>
+    <label id=titleLabel8 class="title2" type="label">FREE SPINS</label>
+    
+    <button id=featuresButton class="glow-on-hover" type="button" onclick="infoPage()">ℹ</button>
+    <button id=settingsButton class="glow-on-hover" type="button" onclick="infoPage()">⚙️</button>
+
+    <button id=gambleButton class="glow-on-hover" type="button" onclick="">🎲</button>
+    <button id=collectButton class="glow-on-hover" type="button" onclick="">💰</button>
+    <input type="range" min="0" max="24" value="0" class="glow-on-range" id="linesRange">
+    <script src="src/scripts/helperFunctions.js"></script>
+    <script src="src/scripts/generators.js"></script>
+    <script src="src/scripts/logic.js"></script>
+    <script src="src/scripts/gfx.js"></script>
+    <link rel="stylesheet" type="text/css" href="src/CSS/iconEffects.css">
+    <link rel="stylesheet" type="text/css" href="src/CSS/title.css">
+</head>
+
+
+<body>
+    <div onmousedown="event.preventDefault ? event.preventDefault() : event.returnValue = false"></div>
+
+
+    <div id="stage"></div>
+    
+    <script src="src/scripts/gs.js"></script>
+  
+   
+   
+</body>
+</html>

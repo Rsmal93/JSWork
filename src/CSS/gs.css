@@ -1,0 +1,196 @@
+@import url('https://fonts.googleapis.com/css2?family=Koulen&display=swap');
+
+html,
+body {
+    padding: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: left;
+    background: rgb(88, 88, 88);
+}
+
+#stage {
+  position: relative;
+}
+#stage canvas, #overlay {
+  position: absolute;
+}
+
+.stage {
+  margin-left:auto;
+  margin-right:auto;
+  width:720px;
+}
+
+label { width: 200px; display: inline-block  }
+
+text:focus {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:focus {
+  outline: none !important;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.background-gif {
+  width: 720px;
+  height: 410px;
+ position: absolute;
+}
+
+.border {
+  width: 625px;
+  height: 355px;
+  top: 30px;
+  left: 45px;
+  position: absolute;
+  background-size: 625px 355px;
+}
+
+.bottomBar {
+  position: absolute;
+  top: 410px;
+  right: 80;
+  width: 720px;
+  height: 70px;
+}
+
+.glow-on-hover {
+    border: none;
+    border-radius: 40px;
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
+    color: #fff;
+    background: #111;
+    cursor: pointer;
+    position: relative;
+    position: fixed;
+    z-index: 0;
+    border-radius: 10px;
+    font-family: 'Teko', sans-serif;
+    color: rgb(255, 255, 255);
+    text-transform: uppercase;
+    text-align: center;
+    white-space: nowrap;
+    text-size-adjust: none;
+}
+
+.glow-on-range {
+  width: 100px;
+  height: 63px;
+  border: none;
+  outline: none;
+  color: #fff;
+  background: #111;
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+}
+
+.glow-on-hover:before {
+    content: '';
+    background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+    position: absolute;
+    top: -2px;
+    left:-2px;
+    background-size: 400%;
+    z-index: -1;
+    filter: blur(5px);
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    animation: glowing 20s linear infinite;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+    border-radius: 10px;
+}
+
+.glow-on-hover:active {
+    color: #000
+}
+
+.glow-on-hover:active:after {
+    background: transparent;
+}
+
+.glow-on-hover:hover:before {
+    opacity: 1;
+}
+
+.glow-on-hover:after {
+    z-index: -1;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    left: 0;
+    top: 0;
+    border-radius: 10px;
+}
+
+@keyframes glowing {
+    0% { background-position: 0 0; }
+    50% { background-position: 400% 0; }
+    100% { background-position: 0 0; }
+}
+
+
+.labelFont1 {
+  border: none;
+  outline: none;
+  position: relative;
+  z-index: 0;
+  border-radius: 10px;
+  font-family: 'Koulen';
+  margin: 0;
+  color: white;
+  text-shadow: 0 0 0.05em #fff, 0 0 0.2em #fe05e1, 0 0 0.3em #fe05e1;
+}
+
+.slidecontainer {
+  width: 100%; /* Width of the outside container */
+}
+
+/* The slider itself */
+.slider {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 100%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: #d3d3d3; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+}
+
+/* Mouse-over effects */
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+}
+
+
+  

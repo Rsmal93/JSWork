@@ -1,0 +1,29 @@
+
+
+.space {/*background picture of icon*/
+    width:103px;height: 82px;margin: 0 auto;border-radius:3px;
+    transition:background-position 2.5s ease-out;}
+
+.space:hover{
+  background-position:35% 0px, top right;}
+
+.icon {/*picture of icon*/
+  width: 103px;height: 82px;margin: 0 auto;border-radius:3px;
+  transition: transform 1s ease-out}
+
+
+.icon:hover{
+  /*transform: rotate(360deg);*/}
+
+@keyframes glow {
+  from {
+    -webkit-box-shadow: 0 0 5px 5px #ddd;
+  }
+  to {
+    -webkit-box-shadow: 0 0 5px 5px #ddd, 0 0 10px #4dbbc7;
+  }
+}
+
+@keyframes spin1 { 100% { transform:rotate(360deg); } }
+@keyframes spin2 { 100% { transform:rotate(-360deg); } }
+@keyframes idle { 100% {} }
