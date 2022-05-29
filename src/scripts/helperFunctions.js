@@ -50,6 +50,14 @@ function delay(n){
     });
 }
 
+function lerp(A,B,t) {
+    return A+(B-A)*t
+}
+
+function randomIntFromInterval(min,max) { //min & max included
+    return Math.floor(Math.random() * (max-min+1)+min);
+} 
+
 
 
 

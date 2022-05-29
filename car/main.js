@@ -1,13 +1,13 @@
-const carCanvas=document.getElementById("carCanvas");
-carCanvas.width=200;
+const scrollCanvas=document.getElementById("carCanvas");
+scrollCanvas.width=200;
 
 const networkCanvas=document.getElementById("networkCanvas");
 networkCanvas.width=300;
 
-const carCtx = carCanvas.getContext("2d");
+const carCtx = scrollCanvas.getContext("2d");
 const networkCtx = networkCanvas.getContext("2d");
 
-const road=new Road(carCanvas.width/2,carCanvas.width*.9);
+const road=new Road(scrollCanvas.width/2,scrollCanvas.width*.9);
 
 let cars=[];
 let bestCar=[];
@@ -27,7 +27,7 @@ for (let i =0; i<40; i++) {
 
 
 //animate();
-carCanvas.height=window.innerHeight;
+scrollCanvas.height=window.innerHeight;
 networkCanvas.height=window.innerHeight;
 road.draw(carCtx);
 document.getElementById("mutate").innerHTML="M: "+mutateAmount.toFixed(2);
@@ -95,7 +95,7 @@ function discard() {
 function generateCars(N){
     let cars=[];
     for(let i=1; i<=N;i++) {
-        cars.push(new Car(road.getLaneCenter(1),100,30,50,"AI"));
+        cars.push(new Car(road.getLaneCenter(1),100,20,20,"AI"));
     }
     return cars;
 }
@@ -113,11 +113,11 @@ function animate(time) {
             ...cars.map(c=>c.y)
         )
     );
-    carCanvas.height=window.innerHeight;
+    scrollCanvas.height=window.innerHeight;
     networkCanvas.height=window.innerHeight;
 
     carCtx.save();
-    carCtx.translate(0,-bestCar.y+carCanvas.height*0.7); //ar down the screen 0.7 = 70%
+    carCtx.translate(0,-bestCar.y+scrollCanvas.height*0.7); //ar down the screen 0.7 = 70%
 
     road.draw(carCtx);
     for (let i=0; i<traffic.length; i++) {

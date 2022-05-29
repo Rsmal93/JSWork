@@ -10,6 +10,7 @@ body {
     justify-content: left;
     align-items: left;
     background: rgb(88, 88, 88);
+    overflow: hidden;
 }
 
 #stage {

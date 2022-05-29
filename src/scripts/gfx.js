@@ -10,12 +10,12 @@ async function gameScreen(rows,cols) {
     for (j=0; j<_cols; j++) {await(delay(0.2));
         for (i=0; i<_rows; i++) {
             if (i==0 || i==_rows-1 || j==0 || j==_cols-1) { //Draw Border
-                if (document.getElementById(i+''+j) == null){createIconGfx(i+''+j,'backa',true,false, i,j, _rows, _cols,0,0); }} 
+                if (document.getElementById(i+''+j) == null){createIconGfx(i+''+j,'backa',true,false, i,j, _rows, _cols,0,0,false); }} 
             else { //Draw The Game Grid, //backa0 is transparent img, change to whatever
                 var icon = 0; var cValue=0;
                 for (e=0; e<gridSquares.length; e++) {
                     if (gridSquares[e].gridX == j-1 && gridSquares[e].gridY == i-1) {icon = gridSquares[e].icon; cValue = gridSquares[e].coinValue;break;}}
-                if (document.getElementById(i+''+j) == null){createIconGfx(i+''+j,'backa',false,false,i,j, _rows, _cols,icon,cValue);}}  
+                if (document.getElementById(i+''+j) == null){createIconGfx(i+''+j,'backa',false,false,i,j, _rows, _cols,icon,cValue,false);}}  
     }}
     if (isAnimating == 2) {isAnimating=0;return}
     winnerGFX();
@@ -206,15 +206,20 @@ function autoSpinMenu() {
 
 function createScrollGfx(){}
 
-function createIconGfx(id, gfx, border, temp, row, col, rows, cols, icon, cValue) {
+function createIconGfx(id, gfx, border, temp, row, col, rows, cols, icon, cValue,scroll) {
     //The Background for the Icon
     var newDiv = document.createElement('div');
     newDiv.className = 'space';newDiv.id = gfx+''+i+''+j;
     var url = 'src/images/gifs/'+gfx+'.gif';newDiv.style.backgroundImage="url("+url+")";
-    newDiv.style.left = (backgroundImage2.width/cols)*col+'px';
-    newDiv.style.top = (backgroundImage2.height/rows)*row+'px';
+   
     newDiv.style.position = 'absolute';
-    document.getElementById('stage').appendChild(newDiv);
+    if (!scroll) {document.getElementById('stage').appendChild(newDiv);
+    newDiv.style.left = (backgroundImage2.width/cols)*col+'px';
+    newDiv.style.top = (backgroundImage2.height/rows)*row+'px';}
+    else {document.getElementById('scrollDiv').appendChild(newDiv);
+    newDiv.style.left = (backgroundImage2.width/cols)*col+'px';
+    newDiv.style.top = (backgroundImage2.height/rows)*row+'px';}
+    
 
     //The Icon Itself
     var newDiv2 = document.createElement('div');

@@ -9,7 +9,12 @@ var playerVars = {
 //Images to Load into Project
 var backgroundImage = new Image(); //Black BG
 var backgroundImage2 = new Image(); //Orc Lady Slots BG
-var crossIcon = new Image
+var crossIcon = new Image();
+var scrollImgs= [];
+for (var i=0; i<5; i++) {
+    var newImg = new Image();
+    scrollImgs.push(newImg);
+}
 var icon0 = new Image(), icon1= new Image(), icon2= new Image(), icon3= new Image(), icon4= new Image(),
     icon5= new Image(), icon6 = new Image() , icon7 = new Image() , icon8 = new Image(),
     icon9 = new Image(), icon10 = new Image(), icon11 = new Image(), icon12 = new Image(),
@@ -19,6 +24,11 @@ var birdIcons = [icon10,icon11,icon12];
 var orcIcons = [icon0,icon1,icon2,icon3,icon4,icon5,icon6,icon7,icon8,icon9,icon10];
 
 //Assign a source to the images
+scrollImgs[0].src='src/images/iconsgrid1.jpg';
+scrollImgs[1].src='src/images/iconsgrid2.jpg';
+scrollImgs[2].src='src/images/iconsgrid3.jpg';
+scrollImgs[3].src='src/images/iconsgrid4.jpg';
+scrollImgs[4].src='src/images/iconsgrid5.jpg';
 backgroundImage.src = 'src/images/back.png'; 
 backgroundImage2.src = 'src/images/gifs/gr3.gif'; 
 crossIcon.src = 'src/images/icons/cross.png';
@@ -94,11 +104,12 @@ var autoSpinButton5 = document.getElementById('autoSpinButton5');centreElement('
 var autoSpinButton6 = document.getElementById('autoSpinButton6');centreElement('stage', autoSpinButton6, 590,379);
 var spinButton = document.getElementById('spinButton');centreElement('stage', spinButton, 655,415);
 var linesRange = document.getElementById('linesRange');centreElement('stage', linesRange, 200,600);
+var scrollDiv=document.getElementById('scrollDiv');centreElement('stage', scrollDiv, 108,78);
 
 
 
 spinButton.onclick = function() {Delay.timeStop.bind(Delay)};
-spinButton.onclick = function() {loop('1');}
+spinButton.onclick = function() {spinLength('1');}
 spinButton.style.height='60px';spinButton.style.width='60px';
 autoSpinButton.style.height='60px';autoSpinButton.style.width='60px';autoSpinButton.innerHTML= '⟳';autoSpinButton.style.fontSize='30px';
 autoSpinButton2.style.height = '30px';autoSpinButton2.style.width = '30px';autoSpinButton2.style.zIndex = 5;autoSpinButton2.style.display='none';

@@ -38,5 +38,6 @@ function stopAutoSpin() {
 
 function spinLength(spins) {
     trackedSpinsLeft=spins;
-    loop(spins);
+    scrollSetup(10,5,spins);
+    //loop(spins);
 }
