@@ -33,10 +33,10 @@ if (mutateAmount==null){mutateAmount=0.1;}
 
 //const car=new Car(road.getLaneCenter(1),100,30,50,"AI");//AI,KEYS,DUMMY
 let traffic =[];
-for (let i =0; i<40; i++) {
-    traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(330-160)+160)*i),25,40,"DUMMY",2));
-    traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(330-160)+160)*i),30,50,"DUMMY",2));
-    traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(330-160)+160)*i),30,50,"DUMMY",2));
+for (let i =0; i<20; i++) {
+    traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(360-160)+160)*i),25,40,"DUMMY",2, getRandomColor()));
+    traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(360-160)+160)*i),30,50,"DUMMY",2, getRandomColor()));
+    traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(360-160)+160)*i),30,50,"DUMMY",2, getRandomColor()));
 }
 
 
@@ -77,6 +77,14 @@ function hiddenUp() {
 function hiddenDown() {
     hidden-=1;
     document.getElementById("hidden").innerHTML="?: "+hidden;
+}
+
+function reLoop() {
+    carInterval = setInterval(function() {
+       for(i=0; i<cars.length; i++) {
+           cars[i].y=0;
+       }
+    }, 30000)
 }
 
 
@@ -129,6 +137,7 @@ function go() {
     animate();
     document.getElementById('goButton').style.display='none';
     document.getElementById('reloadButton').style.display='block';
+    reLoop();
 }
 
 document.getElementById('reloadButton').style.display='none';
@@ -164,9 +173,9 @@ function discard() {
 }
 
 function generateCars(N){
-    let cars=[];
+    cars=[];
     for(let i=1; i<=N;i++) {
-        cars.push(new Car(road.getLaneCenter(1),100,15,15,"AI"));
+        cars.push(new Car(road.getLaneCenter(1),100,15,25,"AI"));
     }
     return cars;
 }
