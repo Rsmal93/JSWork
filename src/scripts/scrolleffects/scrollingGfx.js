@@ -43,6 +43,7 @@ async function scrollSetup(rows,cols,spins) {
     if (isAnimating==0) {
         
         gridSquares=[];
+        
         backdropSetup();
         scroll=new scrollGFX(scrollCanvas.width/2,scrollCanvas.width*.9);
         scrollObj = new scrollObject(scroll.getLaneCenter(2),100,30,50,0)
@@ -63,8 +64,10 @@ function looper() {
     for (i=0; i<scrollCTXs.length; i++) {
         scrollCTXs[i].clearRect(0,0, scrollCanvases[i].width, scrollCanvases[i].height);
     }
-    gridSquares=[];
-    makeGameData(_rows+2,_cols+2);
+
+    gridSquares=[], paidLine=null;
+    linesBaby(3,5);
+    makeGameData(_rows,_cols);
     isAnimating=1;
     interval0 = setInterval(function() {
     
@@ -105,6 +108,14 @@ function looper() {
 
     interval6 = setInterval(function() {
        on=7;
+       for (i=0; i<3; i++) {
+           for (j=0; j<5; j++) {
+               var icon = 0; var cValue=0;
+               for (e=0; e<gridSquares.length; e++) {
+                   if (gridSquares[e].gridX == j && gridSquares[e].gridY == i) {icon = gridSquares[e].icon; cValue = gridSquares[e].coinValue;break;}}
+               if (document.getElementById(i+''+j) == null){createIconGfx(i+''+j,'backa',false,false,i,j, 3, 5,icon,cValue,false);}
+           }
+       }
     }, 5500)
 }
      
@@ -151,8 +162,7 @@ function animate(time) {
         spinsLeft-=1;
         trackedSpinsLeft-=1;
         on=0;
-        linesBaby(3,5);
-        winnerGFX();
+       winnerGFX();
         //loop(_spins);
     }
 }

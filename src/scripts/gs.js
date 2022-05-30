@@ -214,8 +214,8 @@ async function loop(spins) {
                     linesBaby(rows,cols);
                     backdropSetup();
                     clicked=false;
-                    scrollSetup(rows,cols,trackedSpinsLeft);
-                    //gameScreen(rows,cols);
+                    //scrollSetup(rows,cols,trackedSpinsLeft);
+                    gameScreen(rows,cols);
                 }
             
             }

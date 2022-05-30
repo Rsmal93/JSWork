@@ -80,7 +80,7 @@ async function winnerGFX() {
                     gambleButton.style.display='block';collectButton.style.display='block';
                     for (f=0; f<lines.length; f++) {
                         for (e=0; e<5; e++) {
-                            var parent = document.getElementById('backa'+ (lines[f][e][0]+1)+''+(lines[f][e][1]+1));
+                            var parent = document.getElementById('backa'+ (lines[f][e][0])+''+(lines[f][e][1]));
                             if (parent!=null) {
                                 parent.style.backgroundImage = "url('src/images/gifs/backa.gif')";
                                     //Change winning icon? if you want
@@ -91,7 +91,7 @@ async function winnerGFX() {
                     }
                     
                     for (e=0; e<paidLine[i][1]; e++) {
-                        var parent = document.getElementById('backa'+ (lines[j][e][0]+1)+''+(lines[j][e][1]+1));
+                        var parent = document.getElementById('backa'+ (lines[j][e][0])+''+(lines[j][e][1]));
                         if (paidLine[i][2] != 9) {
                             if (parent!=null) {
                             parent.style.backgroundImage = "url("+url+")";
@@ -112,8 +112,8 @@ async function winnerGFX() {
             }lineTime+=1.5;if (isAnimating == 2) {isAnimating=0;return};await delay(1.5); //move this to a new interval when not so fkn tired
         }
     }
-    scatterGFX(gridSquares);
-    coinsGFX(gridSquares);
+    //scatterGFX(gridSquares);
+    //coinsGFX(gridSquares);
     isAnimating=0;
     
 }
@@ -121,7 +121,7 @@ async function winnerGFX() {
 async function scatterGFX(gridSquares) {
     var count=0;
     var scatters=[];
-    for (i=0; i<15; i++) {
+    for (i=0; i<gridSquares.length; i++) {
         if (gridSquares[i].icon == '9') {
             count++; scatters.push([gridSquares[i].gridY+1, gridSquares[i].gridX+1]);
         }
@@ -148,7 +148,7 @@ async function coinsGFX(gridSquares) {
     var count=0;
     var scatters=[];
     var hit=false;
-    for (i=0; i<15; i++) {
+    for (i=0; i<gridSquares.length; i++) {
         if (gridSquares[i].icon == '10') {
             count++; scatters.push([gridSquares[i].gridY+1, gridSquares[i].gridX+1]);
         }
@@ -173,14 +173,16 @@ async function coinsGFX(gridSquares) {
             titleLabel8.style.display = 'block';
             autoSpinButton.innerHTML=freeSpins;
             await delay(1.5);
-            loop(freeSpins);
+            scrollSetup(3,5,freeSpins);
+            //loop(freeSpins);
             return;
         } else if (spinsLeft >= 0) {
             if (isAnimating == 2) {isAnimating=0;}
             if (spinsLeft > 1) {autoSpinButton6.style.display = 'block';}
             titleLabel8.style.display = 'none';
             await delay(1.5);
-            loop(spinsLeft);
+            scrollSetup(3,5,spinsLeft);
+            //loop(spinsLeft);
         } else {
             stopAutoSpin();
         }
@@ -222,8 +224,8 @@ function createIconGfx(id, gfx, border, temp, row, col, rows, cols, icon, cValue
    
     newDiv.style.position = 'absolute';
     if (!scroll) {document.getElementById('stage').appendChild(newDiv);
-    newDiv.style.left = (backgroundImage2.width/cols)*col+'px';
-    newDiv.style.top = (backgroundImage2.height/rows)*row+'px';}
+    newDiv.style.left = ((540/cols)*col)+87+'px';
+    newDiv.style.top = ((260/rows)*row)+75+'px';}
     else {document.getElementById('scrollDiv').appendChild(newDiv);
     newDiv.style.left = (backgroundImage2.width/cols)*col+'px';
     newDiv.style.top = (backgroundImage2.height/rows)*row+'px';}

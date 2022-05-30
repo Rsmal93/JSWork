@@ -17,7 +17,7 @@ function paidLines(gridSquares,lines) {
     for (i=0; i<lines.length; i++) {
         for (j=0; j<lines[i].length; j++) {
             //arrays of coords here [0] y, [1] x
-            for(e=0; e<15; e++) {
+            for(e=0; e<gridSquares.length; e++) {
                 if ((lines[i][j][0] == gridSquares[e].gridY) && (lines[i][j][1] == gridSquares[e].gridX) && lines[i][j].length == 2) {
                     lines[i][j].push(gridSquares[e].icon);
                     break;
@@ -60,17 +60,17 @@ function paidLines(gridSquares,lines) {
 
 function makeGameData(rows,cols) {
     for (j=0; j<cols; j++) { for (i=0; i<rows; i++) {
-        if (i==0 || i==rows-1 || j==0 || j==cols-1) { //Border
-        }
-        else {
-            var randOrc = Math.floor(Math.random() * orcIcons.length);
-            var bet = (playerVars.betPerLine*playerVars.lines);
-            var coinVals = [bet*1, bet*2, bet*3, bet*4, bet*5, bet*6, bet*7, bet*8,bet*10,bet*14,bet*16,bet*18,bet*20,bet*24, 'mini', 'maj'];
-            var randCoin= Math.floor(Math.random() * coinVals.length);
-            var gridSquare = {gridY: i-1, gridX: j-1, icon: randOrc, iValue: iconVals(randOrc), coinValue: coinVals[randCoin]};  gridSquares.push(gridSquare);}} 
+    
+        var randOrc = Math.floor(Math.random() * orcIcons.length);
+        var bet = (playerVars.betPerLine*playerVars.lines);
+        var coinVals = [bet*1, bet*2, bet*3, bet*4, bet*5, bet*6, bet*7, bet*8,bet*10,bet*14,bet*16,bet*18,bet*20,bet*24, 'mini', 'maj'];
+        var randCoin= Math.floor(Math.random() * coinVals.length);
+        var gridSquare = {gridY: i, gridX: j, icon: randOrc, iValue: iconVals(randOrc), coinValue: coinVals[randCoin]};  gridSquares.push(gridSquare);}
+    } 
+        paidLine = paidLines(gridSquares,lines);
     }
-    paidLine = paidLines(gridSquares,lines);
-}
+    
+
 
 function createHTMLElement(element, id, className, text, div, xOffset, yOffset, width, height) {
     var t = document.createElement(element);
