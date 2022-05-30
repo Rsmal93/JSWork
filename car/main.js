@@ -34,8 +34,9 @@ if (mutateAmount==null){mutateAmount=0.1;}
 //const car=new Car(road.getLaneCenter(1),100,30,50,"AI");//AI,KEYS,DUMMY
 let traffic =[];
 for (let i =0; i<40; i++) {
-    traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(250-160)+160)*i),25,40,"DUMMY",2));
-    traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(250-160)+160)*i),30,50,"DUMMY",2));
+    traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(330-160)+160)*i),25,40,"DUMMY",2));
+    traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(330-160)+160)*i),30,50,"DUMMY",2));
+    traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(330-160)+160)*i),30,50,"DUMMY",2));
 }
 
 
