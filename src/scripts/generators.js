@@ -17,7 +17,7 @@ function paidLines(gridSquares,lines) {
     for (i=0; i<lines.length; i++) {
         for (j=0; j<lines[i].length; j++) {
             //arrays of coords here [0] y, [1] x
-            for(e=0; e<gridSquares.length; e++) {
+            for(e=0; e<15; e++) {
                 if ((lines[i][j][0] == gridSquares[e].gridY) && (lines[i][j][1] == gridSquares[e].gridX) && lines[i][j].length == 2) {
                     lines[i][j].push(gridSquares[e].icon);
                     break;

@@ -121,7 +121,7 @@ async function winnerGFX() {
 async function scatterGFX(gridSquares) {
     var count=0;
     var scatters=[];
-    for (i=0; i<gridSquares.length; i++) {
+    for (i=0; i<15; i++) {
         if (gridSquares[i].icon == '9') {
             count++; scatters.push([gridSquares[i].gridY+1, gridSquares[i].gridX+1]);
         }
@@ -148,7 +148,7 @@ async function coinsGFX(gridSquares) {
     var count=0;
     var scatters=[];
     var hit=false;
-    for (i=0; i<gridSquares.length; i++) {
+    for (i=0; i<15; i++) {
         if (gridSquares[i].icon == '10') {
             count++; scatters.push([gridSquares[i].gridY+1, gridSquares[i].gridX+1]);
         }
@@ -185,6 +185,14 @@ async function coinsGFX(gridSquares) {
             stopAutoSpin();
         }
     }
+    stopAutoSpin();//break autospin
+    clearInterval(interval0);
+        clearInterval(interval1);
+        clearInterval(interval2);
+        clearInterval(interval3);
+        clearInterval(interval4);
+        clearInterval(interval5);
+        clearInterval(interval6);
      
 }
 

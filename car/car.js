@@ -16,8 +16,9 @@ class Car {
 
         if (controlType!="DUMMY") {
             this.sensor= new Sensor(this);
+            this.maxSpeed=carSpeed;
             this.brain=new NeuralNetwork(
-                [this.sensor.rayCount,10,4]
+                [this.sensor.rayCount,hidden,4]
             );
         }
         this.controls= new Controls(controlType); 

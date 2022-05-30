@@ -14,6 +14,19 @@ let bestCar=[];
 
 let mutateAmount = JSON.parse(localStorage.getItem("mutate"));
 let N = JSON.parse(localStorage.getItem("actors"));
+let raySpread = JSON.parse(localStorage.getItem("raySpread"));
+let rSpreadVal = JSON.parse(localStorage.getItem("spreadVal"));
+let rayLength = JSON.parse(localStorage.getItem("rayLength"));
+let rayCount = JSON.parse(localStorage.getItem("rayCount"));
+let carSpeed = JSON.parse(localStorage.getItem("carSpeed"));
+let hidden = JSON.parse(localStorage.getItem("hidden"));
+
+if (raySpread==null) {raySpread=Math.PI/1.5}
+if (rSpreadVal==null) {rSpreadVal=1.5}
+if (rayLength==null) {rayLength=100}
+if (rayCount==null) {rayCount=6}
+if (carSpeed==null) {carSpeed=4}
+if (hidden==null) {hidden=6}
 if (N==null){N=250;}
 if (mutateAmount==null){mutateAmount=0.1;}
 
@@ -21,7 +34,7 @@ if (mutateAmount==null){mutateAmount=0.1;}
 //const car=new Car(road.getLaneCenter(1),100,30,50,"AI");//AI,KEYS,DUMMY
 let traffic =[];
 for (let i =0; i<40; i++) {
-    traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(250-160)+160)*i),30,50,"DUMMY",2));
+    traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(250-160)+160)*i),25,40,"DUMMY",2));
     traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(250-160)+160)*i),30,50,"DUMMY",2));
 }
 
@@ -32,6 +45,11 @@ networkCanvas.height=window.innerHeight;
 road.draw(carCtx);
 document.getElementById("mutate").innerHTML="M: "+mutateAmount.toFixed(2);
 document.getElementById("actors").innerHTML="N: "+N;
+document.getElementById("raySpread").innerHTML="RS: "+raySpread.toFixed(2);
+document.getElementById("rayLength").innerHTML="RL: "+rayLength;
+document.getElementById("rayCount").innerHTML="RC: "+rayCount;
+document.getElementById("speed").innerHTML="S: "+carSpeed;
+document.getElementById("hidden").innerHTML="?: "+hidden;
 
 function mutateUp() {
     mutateAmount+=0.01;
@@ -43,17 +61,57 @@ function mutateDown() {
 }
 function actorsUp() {
     N+=50;
-    if (N==51){
-        N=50;
-    }
+    if (N==51){N=50;}
     document.getElementById("actors").innerHTML="N: "+N;
 }
 function actorsDown() {
     N-=50;
-    if (N<50) {
-        N=1;
-    }
+    if (N<50) {N=1;}
     document.getElementById("actors").innerHTML="N: "+N;
+}
+function hiddenUp() {
+    hidden+=1;
+    document.getElementById("hidden").innerHTML="?: "+hidden;
+}
+function hiddenDown() {
+    hidden-=1;
+    document.getElementById("hidden").innerHTML="?: "+hidden;
+}
+
+
+function raySpreadUp() {
+    rSpreadVal+=0.1;
+    raySpread=Math.PI/rSpreadVal;
+    document.getElementById("raySpread").innerHTML="RS: "+raySpread.toFixed(2);
+}
+function raySpreadDown() {
+    rSpreadVal-=0.1;
+    raySpread=Math.PI/rSpreadVal;
+    document.getElementById("raySpread").innerHTML="RS: "+raySpread.toFixed(2);
+}
+function rayLengthUp() {
+    rayLength+=10;
+    document.getElementById("rayLength").innerHTML="RL: "+rayLength;
+}
+function rayLengthDown() {
+    rayLength-=10;
+    document.getElementById("rayLength").innerHTML="RL: "+rayLength;
+}
+function rayCountUp() {
+    rayCount+=1;
+    document.getElementById("rayCount").innerHTML="RC: "+rayCount;
+}
+function rayCountDown() {
+    rayCount-=1;
+    document.getElementById("rayCount").innerHTML="RC: "+rayCount;
+}
+function speedUp() {
+    carSpeed+=1;
+    document.getElementById("speed").innerHTML="S: "+carSpeed;
+}
+function speedDown() {
+    carSpeed-=1;
+    document.getElementById("speed").innerHTML="S: "+carSpeed;
 }
 function go() {
     cars = generateCars(N);
@@ -79,6 +137,16 @@ function reload() {
     JSON.stringify(mutateAmount));
     localStorage.setItem("actors",
     JSON.stringify(N));
+    localStorage.setItem("rayCount",
+    JSON.stringify(rayCount));
+    localStorage.setItem("rayLength",
+    JSON.stringify(rayLength));
+    localStorage.setItem("raySpread",
+    JSON.stringify(raySpread));
+    localStorage.setItem("spreadVal",
+    JSON.stringify(rSpreadVal));
+    localStorage.setItem("speed",
+    JSON.stringify(carSpeed));
     window.location.reload();
 }
 
@@ -95,7 +163,7 @@ function discard() {
 function generateCars(N){
     let cars=[];
     for(let i=1; i<=N;i++) {
-        cars.push(new Car(road.getLaneCenter(1),100,20,20,"AI"));
+        cars.push(new Car(road.getLaneCenter(1),100,15,15,"AI"));
     }
     return cars;
 }

@@ -6,7 +6,7 @@ class scrollObject {
         this.height=height;
 
         this.speed=0;
-        this.acceleration=0.2;
+        this.acceleration=0.5;
         this.maxSpeed=maxSpeed;
         this.friction=0.05;
         this.angle=0;
@@ -14,9 +14,7 @@ class scrollObject {
         this.controls= {forward: false,reverse: false};
     }
 
-    update(on) {
-        if (on) {this.controls.forward=true;}
-        else {this.controls.forward=false;}
+    update() {
       
         this.#move();
         this.polygon=this.#createPolygon();

@@ -1,13 +1,15 @@
 class Sensor{
     constructor(car){
         this.car=car;
-        this.rayCount=16;
-        this.rayLength=120;
-        this.raySpread=Math.PI*1.2;
+        this.rayCount=rayCount;
+        this.rayLength=rayLength;
+        this.raySpread=raySpread;
 
         this.rays=[];
         this.readings=[];
     }
+
+    
 
     update(roadBorders,traffic) {
        this.#castRays();

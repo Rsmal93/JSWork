@@ -10,12 +10,32 @@
         <button id="reloadButton" onclick="reload()">🔄</button>
         <button onclick="save()">💾</button>
         <button onclick="discard()">🗑️</button>
+        
+    </div>
+    <div id="verticalButtons">
         <button onclick="mutateUp()">👽⬆️</button>
         <button onclick="mutateDown()">👽⬇️</button>
-        <label id="mutate"></label>
+        <label id="mutate">M: 0.05</label>
         <button onclick="actorsUp()">🚘⬆️</button>
         <button onclick="actorsDown()">🚘⬇️</button>
-        <label id="actors"></label>
+        <label id="actors">N: 250</label>
+        <button onclick="hiddenUp()">?⬆️</button>
+        <button onclick="hiddenDown()">?⬇️</button>
+        <label id="hidden">?: 6</label>
+        <button onclick="speedUp()">👟⬆️</button>
+        <button onclick="speedDown()">👟⬇️</button>
+        <label id="speed">S: 3</label>
+    </div>
+    <div id="verticalButtons">
+        <button onclick="rayCountUp()">↕⬆️</button>
+        <button onclick="rayCountDown()">↕⬇️</button>
+        <label id="rayCount">RC: 6</label>
+        <button onclick="raySpreadUp()">⎋⬆️</button>
+        <button onclick="raySpreadDown()">⎋⬇️</button>
+        <label id="raySpread">RS: 2.09</label>
+        <button onclick="rayLengthUp()">↕⬆️</button>
+        <button onclick="rayLengthDown()">↕⬇️</button>
+        <label id="rayLength">RL: 100</label>
     </div>
     <canvas id="networkCanvas"></canvas>
     <script src="visualizer.js"></script>

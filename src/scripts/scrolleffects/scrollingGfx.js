@@ -1,125 +1,159 @@
-//Import this file last
-var scrollCanvas = document.createElement('canvas');
-scrollCanvas.id = 'scrollCanvas';
-scrollCanvas.width = 530;
-scrollCanvas.height = 260;
-document.getElementById('scrollDiv').appendChild(scrollCanvas); //Add canvas to Div 'stage'
-//Get the context of canvas
-var scrollCtx = scrollCanvas.getContext('2d');
+//For each scroller
+var scrollCanvases=[];
+var scrollCTXs=[];
+var scrollGFXs=[];
+var scrollOBJs=[];
+let scrollers = 5;
+var totalWidth=530;
 
-var scroll=new scrollGFX(scrollCanvas.width/2,scrollCanvas.width*.9);
-var scrollObj = new scrollObject(scroll.getLaneCenter(2),100,30,50,0)
+for (i=0; i<scrollers; i++) {
+    var scrollCanvas = document.createElement('canvas');scrollCanvas.id = 'scrollCanvas'+i;
+    scrollCanvas.width = 105;scrollCanvas.height = 260;scrollCanvas.style.left=60*i+'px';
+    document.getElementById('scrollDiv').appendChild(scrollCanvas); //Add canvas to Div 'stage'
+    //Get the context of canvas
+    var scrollCtx = scrollCanvas.getContext('2d');
+    var scroll=new scrollGFX(scrollCanvas.width/2,scrollCanvas.width*.9);
+    var scrollObj = new scrollObject(scroll.getLaneCenter(2),100,30,50,0)
+
+    scrollCanvases.push(scrollCanvas);
+    scrollCTXs.push(scrollCtx);
+    scrollGFXs.push(scroll);
+    scrollOBJs.push(scrollObj);
+}
 
 
-
-var translations= [-scrollObj.y,scrollObj.y];
-var translation=translations[Math.floor(Math.random()*translations.length)];
-
-
-const perfectFrameTime = 1000 / 60;
-let deltaTime = 0;
-let lastTimestamp = 0;
-
-
-var lspeed=randomIntFromInterval(10,15);//Random Range Function (random()*(max-min+1)+min)
-var _rows=200;
-var _cols=5;
+var lspeed=50;//randomIntFromInterval(10,15);//Random Range Function (random()*(max-min+1)+min)
+var _rows;
+var _cols;
 
 var on = 0;
 var _spins=0;
 
-function scrollSetup(rows,cols,spins) {
-    var doc = document.getElementById('scrollCanvas');
-    doc.remove();
-    var newscrollCanvas = document.createElement('canvas');
-    newscrollCanvas.id = 'scrollCanvas';
-    newscrollCanvas.width = 530;
-    newscrollCanvas.height = 260;
-    document.getElementById('scrollDiv').appendChild(newscrollCanvas); //Add canvas to Div 'stage'
-    //Get the context of canvas
-    scrollCtx = newscrollCanvas.getContext('2d');
-    scroll=new scrollGFX(newscrollCanvas.width/2,newscrollCanvas.width*.9);
-    scrollObj = new scrollObject(scroll.getLaneCenter(2),100,30,50,0)
-    _rows=rows;_cols=cols;_spins=spins;on=1;
-    looper();
-    animate(lastTimestamp,true);
+async function scrollSetup(rows,cols,spins) {
+    if (isAnimating==1) {
+        isAnimating=2;
+    }
+    if (interval!=null) {
+        clearInterval(interval);
+    }
+    while (isAnimating!=0) {
+            await delay(0.1);
+        }
+    //wait until current animations have stopped
+    if (isAnimating==0) {
+        
+        gridSquares=[];
+        backdropSetup();
+        scroll=new scrollGFX(scrollCanvas.width/2,scrollCanvas.width*.9);
+        scrollObj = new scrollObject(scroll.getLaneCenter(2),100,30,50,0)
+        scrollObj.y=0;
+        _rows=rows;_cols=cols;_spins=spins;on=1;
+        looper();
+        animate();
+    }
 }
 
-
 function looper() {
-    clearInterval(interval);
-    clearInterval(interval2);
-    scrollObj.y=0;
-    scrollObj.controls.forward=true;
-    scrollCtx.save();
+   for(i=0; i<scrollOBJs.length; i++) {
+       scrollOBJs[i].y=0;
+       scrollOBJs[i].controls.forward=true;
+       scrollOBJs[i].friction=0;
+   }
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    scrollCtx.clearRect(0, 0, scrollCanvas.width, scrollCanvas.height*0.7);
-    scrollCtx.translate(0,0);
-    scrollCtx.restore();
+    for (i=0; i<scrollCTXs.length; i++) {
+        scrollCTXs[i].clearRect(0,0, scrollCanvases[i].width, scrollCanvases[i].height);
+    }
     gridSquares=[];
     makeGameData(_rows+2,_cols+2);
-    interval = setInterval(function () {
-        //lspeed should be called every spin not frame
-        gridSquares=[];
-        makeGameData(_rows+2,_cols+2);
-        //Put Real Icon in Position
-        }, 1000);
-
-    interval2 = setInterval(function () {
-        //lspeed should be called every spin not frame
-        lspeed=0;
-        scrollObj.controls.forward=false;
-        //scrollCtx.clearRect(0,0, scrollCanvas.width, scrollCanvas.height);
-        //scrollCtx.translate(0,0);
-        //gridSquares=[];
-        //makeGameData(_rows+2,_cols+2);
+    isAnimating=1;
+    interval0 = setInterval(function() {
+    
+        scrollOBJs[0].y=13; scrollOBJs[1].y=13; scrollOBJs[2].y=13; scrollOBJs[3].y=13; scrollOBJs[4].y=13;
+       
+    }, 200)
+    interval1 = setInterval(function() {
+       
+        //scrollOBJs[0].y=0;
+        scrollOBJs[0].controls.forward=false;
+        scrollOBJs[0].friction=1;
         on=2;
+    }, 1000)
+    interval2 = setInterval(function() {
         
-            //Put Real Icon in Position
-        }, 3000);
+        scrollOBJs[1].controls.forward=false;
+        scrollOBJs[1].friction=1;
+        on=3;
+    }, 1480)
+    interval3 = setInterval(function() {
+        
+        scrollOBJs[2].controls.forward=false;
+        scrollOBJs[2].friction=1;
+        on=4;
+    }, 1970)
+    interval4 = setInterval(function() {
+        
+        scrollOBJs[3].controls.forward=false;
+        scrollOBJs[3].friction=1;
+        on=5;
+    }, 2460)
+    interval5 = setInterval(function() {
+        
+        scrollOBJs[4].controls.forward=false;
+        scrollOBJs[4].friction=1;
+        on=6;
+    }, 3200)
+
+    interval6 = setInterval(function() {
+       on=7;
+    }, 5500)
 }
      
 
 function animate(time) {
-    if (on==1) {
+    
+    if (on>=1) {
         requestAnimationFrame(animate);
         //deltaTime = (time - lastTimestamp) / perfectFrameTime;
         //lastTimestamp = time;
-        scrollCanvas=document.getElementById('scrollCanvas');
-        scrollCtx=scrollCanvas.getContext('2d');
-        scrollCanvas.height=260;
-        scrollObj.update(true);
-        scrollCtx.save();
-        scrollCtx.translate(0,scrollObj.y+scrollCanvas.height*1.1); //ar down the screen 0.7 = 70%
+        for (i=0; i<scrollers; i++) {
+            scrollCanvases[i].height=260;
+            scrollCanvases[i].style.left=105*i+'px';
+            scrollOBJs[i].update();
+            scrollCTXs[i].save();
+            scrollCTXs[i].translate(0,scrollOBJs[i].y); //ar down the screen 0.7 = 70%
+            scrollOBJs[i].maxSpeed=lspeed;
+            
+        }
+
+        for (i=0; i<scrollers; i++) {
+            for (j=0; j<_rows; j++) {
+                var icon = 0; var cValue=0;
+                for (e=0; e<gridSquares.length; e++) {
+                    if (gridSquares[e].gridX == i&& gridSquares[e].gridY == j) {icon = gridSquares[e].icon; cValue = gridSquares[e].coinValue;break;}}
+                    sCTX=scrollCTXs[i];
+                    if (on-1 <= scrollers) {
+                        scrollCTXs[i].save();
+                        sCTX.drawImage(orcIcons[icon], 0, (j*82), 65, 65);
+                    }
+            }
+        }
+
+       
+        scrollCtx.restore();
+        
         
         //scroll.draw(scrollCtx); //draw the road effect
         //scrollObj.draw(scrollCtx,"blue");
-        scrollObj.maxSpeed=lspeed;
-        for (j=0; j<_cols; j++) {
-            for (i=0; i<_rows; i++) {
-                var icon = 0; var cValue=0;
-                for (e=0; e<gridSquares.length; e++) {
-                    if (gridSquares[e].gridX == j && gridSquares[e].gridY == i) {icon = gridSquares[e].icon; cValue = gridSquares[e].coinValue;break;}}
-                    scrollCtx.drawImage(orcIcons[icon],((scrollCanvas.width/_cols)*(j))+5,(i*82)-scrollObj.y/(time/50), 65, 65);
-                }
-
-        }
-        scrollCtx.restore();
-    }
-    if (on==2) {
-        on=0;
-        clearInterval(interval);
-        clearInterval(interval2);
-        scrollObj.y=0;
-        scrollCtx.save();
-        //ctx.clearRect(0, 0, canvas.width, canvas.height);
-        scrollCtx.clearRect(0, 0, scrollCanvas.width, scrollCanvas.height*0.7);
-        scrollCtx.translate(0,0);
-        scrollCtx.restore();
-       
-        loop(_spins);
-        requestAnimationFrame(animate);
         
+        
+    }
+    if (on==7) {
+        spinsLeft-=1;
+        trackedSpinsLeft-=1;
+        on=0;
+        linesBaby(3,5);
+        winnerGFX();
+        //loop(_spins);
     }
 }
 
