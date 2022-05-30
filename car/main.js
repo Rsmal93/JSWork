@@ -11,6 +11,7 @@ const road=new Road(scrollCanvas.width/2,scrollCanvas.width*.9);
 
 let cars=[];
 let bestCar=[];
+let traffic=[];
 
 let mutateAmount = JSON.parse(localStorage.getItem("mutate"));
 let N = JSON.parse(localStorage.getItem("actors"));
@@ -32,10 +33,9 @@ if (mutateAmount==null){mutateAmount=0.1;}
 
 
 //const car=new Car(road.getLaneCenter(1),100,30,50,"AI");//AI,KEYS,DUMMY
-let traffic =[];
+traffic =[];
 for (let i =0; i<20; i++) {
     traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(360-160)+160)*i),25,40,"DUMMY",2, getRandomColor()));
-    traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(360-160)+160)*i),30,50,"DUMMY",2, getRandomColor()));
     traffic.push(new Car(road.getLaneCenter(Math.floor(Math.random()*3)),-100-(Math.floor(Math.random()*(360-160)+160)*i),30,50,"DUMMY",2, getRandomColor()));
 }
 
@@ -82,9 +82,13 @@ function hiddenDown() {
 function reLoop() {
     carInterval = setInterval(function() {
        for(i=0; i<cars.length; i++) {
-           cars[i].y=0;
+           cars[i].y=scrollCanvas.height*0.7;
        }
-    }, 30000)
+       for(i=0; i<traffic.length; i++) {
+            traffic[i].y=scrollCanvas.height*0.7-(Math.floor(Math.random()*(3000-200)+200));
+            
+        }
+    }, 20000)
 }
 
 
