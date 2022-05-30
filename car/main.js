@@ -205,10 +205,10 @@ function animate(time) {
     }
     carCtx.globalAlpha=0.2;
     for (let i=0; i<cars.length; i++) {
-        cars[i].draw(carCtx,"blue");
+        cars[i].draw(carCtx, false);
     }
     carCtx.globalAlpha=1;
-    bestCar.draw(carCtx,"blue",true);
+    bestCar.draw(carCtx,true);
 
     carCtx.restore();
     networkCtx.lineDashOffset=-time/50;
