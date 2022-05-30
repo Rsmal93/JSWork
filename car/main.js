@@ -18,7 +18,7 @@ let raySpread = JSON.parse(localStorage.getItem("raySpread"));
 let rSpreadVal = JSON.parse(localStorage.getItem("spreadVal"));
 let rayLength = JSON.parse(localStorage.getItem("rayLength"));
 let rayCount = JSON.parse(localStorage.getItem("rayCount"));
-let carSpeed = JSON.parse(localStorage.getItem("carSpeed"));
+let carSpeed = JSON.parse(localStorage.getItem("speed"));
 let hidden = JSON.parse(localStorage.getItem("hidden"));
 
 if (raySpread==null) {raySpread=Math.PI/1.5}
@@ -147,6 +147,8 @@ function reload() {
     JSON.stringify(rSpreadVal));
     localStorage.setItem("speed",
     JSON.stringify(carSpeed));
+    localStorage.setItem("hidden",
+    JSON.stringify(hidden));
     window.location.reload();
 }
 
