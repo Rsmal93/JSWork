@@ -10,11 +10,6 @@ var playerVars = {
 var backgroundImage = new Image(); //Black BG
 var backgroundImage2 = new Image(); //Orc Lady Slots BG
 var crossIcon = new Image();
-var scrollImgs= [];
-for (var i=0; i<5; i++) {
-    var newImg = new Image();
-    scrollImgs.push(newImg);
-}
 var icon0 = new Image(), icon1= new Image(), icon2= new Image(), icon3= new Image(), icon4= new Image(),
     icon5= new Image(), icon6 = new Image() , icon7 = new Image() , icon8 = new Image(),
     icon9 = new Image(), icon10 = new Image(), icon11 = new Image(), icon12 = new Image(),
@@ -24,11 +19,6 @@ var birdIcons = [icon10,icon11,icon12];
 var orcIcons = [icon0,icon1,icon2,icon3,icon4,icon5,icon6,icon7,icon8,icon9,icon10];
 
 //Assign a source to the images
-scrollImgs[0].src='src/images/iconsgrid1.jpg';
-scrollImgs[1].src='src/images/iconsgrid2.jpg';
-scrollImgs[2].src='src/images/iconsgrid3.jpg';
-scrollImgs[3].src='src/images/iconsgrid4.jpg';
-scrollImgs[4].src='src/images/iconsgrid5.jpg';
 backgroundImage.src = 'src/images/back.png'; 
 backgroundImage2.src = 'src/images/gifs/gr3.gif'; 
 crossIcon.src = 'src/images/icons/cross.png';
@@ -211,11 +201,13 @@ async function loop(spins) {
                     payoutLabel2.innerHTML='';payoutLabel1.innerHTML='';payoutLabel3.innerHTML='';payoutLabel4.innerHTML=''; 
                     gambleButton.style.display='none';collectButton.style.display='none';
                     spinsLeft-=1;if (spinsLeft > 1000) {autoSpinButton.innerHTML='∞';} else if (spinsLeft > 0) {autoSpinButton.innerHTML=spinsLeft;}         
-                    linesBaby(rows,cols);
-                    backdropSetup();
+                    //linesBaby(rows,cols);
+                    //backdropSetup();
                     clicked=false;
                     //scrollSetup(rows,cols,trackedSpinsLeft);
-                    gameScreen(rows,cols);
+                    //gameScreen(rows,cols);
+                    looper();
+                    animate();
                 }
             
             }

@@ -29,28 +29,45 @@ var _cols;
 var on = 0;
 var _spins=0;
 
+var interval0;
+var interval1;
+var interval2;
+var interval3;
+var interval4;
+var interval5;
+var interval6;
+
+var check=0;
+
 async function scrollSetup(rows,cols,spins) {
     if (isAnimating==1) {
         isAnimating=2;
     }
-    if (interval!=null) {
-        clearInterval(interval);
-    }
+    if (interval!=null) {clearInterval(interval);}
+    if (interval0!=null) {clearInterval(interval0);}
+    if (interval1!=null) {clearInterval(interval1);}
+    if (interval2!=null) {clearInterval(interval2);}
+    if (interval3!=null) {clearInterval(interval3);}
+    if (interval4!=null) {clearInterval(interval4);}
+    if (interval5!=null) {clearInterval(interval5);}
+    if (interval6!=null) {clearInterval(interval6);}
+    
+
     while (isAnimating!=0) {
             await delay(0.1);
         }
     //wait until current animations have stopped
     if (isAnimating==0) {
-        
+        check++;
         gridSquares=[];
-        
-        backdropSetup();
         scroll=new scrollGFX(scrollCanvas.width/2,scrollCanvas.width*.9);
         scrollObj = new scrollObject(scroll.getLaneCenter(2),100,30,50,0)
         scrollObj.y=0;
         _rows=rows;_cols=cols;_spins=spins;on=1;
-        looper();
-        animate();
+        
+        backdropSetup();
+        loop(spins);
+        
     }
 }
 
@@ -65,6 +82,7 @@ function looper() {
         scrollCTXs[i].clearRect(0,0, scrollCanvases[i].width, scrollCanvases[i].height);
     }
 
+    bgImg.style.backgroundImage="url('src/images/gifs/gr1.gif')";
     gridSquares=[], paidLine=null;
     linesBaby(3,5);
     makeGameData(_rows,_cols);
@@ -122,13 +140,18 @@ function looper() {
 
 function animate(time) {
     
-    if (on>=1) {
+    if (on>=1 && on<7) {
+        isAnimating=1;
         requestAnimationFrame(animate);
         //deltaTime = (time - lastTimestamp) / perfectFrameTime;
         //lastTimestamp = time;
+        for (i=0; i<scrollCanvases.length; i++) {
+            scrollCanvases[i].style.display='block';
+        }
+
         for (i=0; i<scrollers; i++) {
             scrollCanvases[i].height=260;
-            scrollCanvases[i].style.left=105*i+'px';
+            scrollCanvases[i].style.left=110*i+'px';
             scrollOBJs[i].update();
             scrollCTXs[i].save();
             scrollCTXs[i].translate(0,scrollOBJs[i].y); //ar down the screen 0.7 = 70%
@@ -159,11 +182,16 @@ function animate(time) {
         
     }
     if (on==7) {
-        spinsLeft-=1;
-        trackedSpinsLeft-=1;
         on=0;
-       winnerGFX();
-        //loop(_spins);
+        for (i=0; i<scrollCanvases.length; i++) {
+            scrollCanvases[i].style.display='none';
+        }
+       winnerGFX(false);
+       if (spinsLeft==0) {
+        interval = setInterval(function () {
+            winnerGFX(true);
+        }, (lineTime+2)*1000);
+    }
     }
 }
 

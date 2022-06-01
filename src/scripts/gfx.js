@@ -70,7 +70,7 @@ function linesLabelDisplay(direction) {
     
 }
 
-async function winnerGFX() {
+async function winnerGFX(loop) {
     //lineDisplay();
     if (paidLine!=null){lineTime=1;
         for (i=0; i<paidLine.length; i++) {
@@ -112,9 +112,10 @@ async function winnerGFX() {
             }lineTime+=1.5;if (isAnimating == 2) {isAnimating=0;return};await delay(1.5); //move this to a new interval when not so fkn tired
         }
     }
-    //scatterGFX(gridSquares);
-    //coinsGFX(gridSquares);
-    isAnimating=0;
+    if (!loop) {
+        scatterGFX(gridSquares);
+        coinsGFX(gridSquares);
+    }
     
 }
 
@@ -122,8 +123,9 @@ async function scatterGFX(gridSquares) {
     var count=0;
     var scatters=[];
     for (i=0; i<gridSquares.length; i++) {
-        if (gridSquares[i].icon == '9') {
-            count++; scatters.push([gridSquares[i].gridY+1, gridSquares[i].gridX+1]);
+        if(gridSquares[i].gridY < 3){ //rows 
+            if (gridSquares[i].icon == '9') {
+                count++; scatters.push([gridSquares[i].gridY, gridSquares[i].gridX]);}
         }
     }
     if (count >=3) {
@@ -148,15 +150,20 @@ async function coinsGFX(gridSquares) {
     var count=0;
     var scatters=[];
     var hit=false;
+    var tValue=0;
     for (i=0; i<gridSquares.length; i++) {
         if (gridSquares[i].icon == '10') {
-            count++; scatters.push([gridSquares[i].gridY+1, gridSquares[i].gridX+1]);
+            if(gridSquares[i].gridY < 3){ //rows 
+                count++; 
+                scatters.push([gridSquares[i].gridY, gridSquares[i].gridX]);
+            tValue+=gridSquares[i].coinValue}
         }
     }
     if (count >=6) {
         lineTime+=1.5;
         bgImg.style.backgroundImage="url('src/images/gifs/gr2.gif')";bgImg.style.backgroundSize='720px 410px';
-        payoutLabel3.innerHTML='Feature';payoutLabel4.innerHTML=count;
+        payoutLabel3.innerHTML='Feature';payoutLabel4.innerHTML=tValue.toFixed(2);
+        playerVars.money+=tValue;
         hit=true;
         stopAutoSpin();//break autospin
         for (a=0; a<scatters.length; a++) {
@@ -165,6 +172,8 @@ async function coinsGFX(gridSquares) {
             var child = parent.children;//child[0].style.backgroundImage = "url('src/images/gifs/stars.gif')";
             child[0].style.animation="spin1 3s linear infinite";}
             if (isAnimating == 2) {isAnimating=0;return}await delay(0.33);}
+    } else {
+        isAnimating=0;
     }
     if (!hit) {
         if (freeSpins > 0) {
@@ -173,28 +182,21 @@ async function coinsGFX(gridSquares) {
             titleLabel8.style.display = 'block';
             autoSpinButton.innerHTML=freeSpins;
             await delay(1.5);
-            scrollSetup(3,5,freeSpins);
+            scrollSetup(20,5,freeSpins);
             //loop(freeSpins);
             return;
-        } else if (spinsLeft >= 0) {
+        } else if (spinsLeft > 0) {
             if (isAnimating == 2) {isAnimating=0;}
             if (spinsLeft > 1) {autoSpinButton6.style.display = 'block';}
             titleLabel8.style.display = 'none';
             await delay(1.5);
-            scrollSetup(3,5,spinsLeft);
+            scrollSetup(20,5,spinsLeft);
             //loop(spinsLeft);
         } else {
             stopAutoSpin();
         }
     }
-    stopAutoSpin();//break autospin
-    clearInterval(interval0);
-        clearInterval(interval1);
-        clearInterval(interval2);
-        clearInterval(interval3);
-        clearInterval(interval4);
-        clearInterval(interval5);
-        clearInterval(interval6);
+   
      
 }
 
@@ -224,8 +226,8 @@ function createIconGfx(id, gfx, border, temp, row, col, rows, cols, icon, cValue
    
     newDiv.style.position = 'absolute';
     if (!scroll) {document.getElementById('stage').appendChild(newDiv);
-    newDiv.style.left = ((540/cols)*col)+87+'px';
-    newDiv.style.top = ((260/rows)*row)+75+'px';}
+    newDiv.style.left = ((540/cols)*col)+100+'px';
+    newDiv.style.top = ((260/rows)*row)+77+'px';}
     else {document.getElementById('scrollDiv').appendChild(newDiv);
     newDiv.style.left = (backgroundImage2.width/cols)*col+'px';
     newDiv.style.top = (backgroundImage2.height/rows)*row+'px';}
@@ -251,6 +253,7 @@ function createIconGfx(id, gfx, border, temp, row, col, rows, cols, icon, cValue
         newDiv2.style.backgroundSize = '65px 65px';
         newDiv2.style.backgroundRepeat = 'no-repeat';
         newDiv2.style.backgroundPosition = 'center';
+        newDiv2.style.left='-20px';
     }
     document.getElementById(newDiv.id).appendChild(newDiv2);
 
